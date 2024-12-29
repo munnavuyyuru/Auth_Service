@@ -6,7 +6,7 @@ const app = express();
 const { PORT } = require("./config/serverConfig");
 const apiRoutes = require("./routes/index");
 
-// const UserRepository = require("./repository/user-Repository");
+// const UserService = require("./services/user-Service");
 
 const startServer = async () => {
   app.use(bodyParser.json());
@@ -16,9 +16,11 @@ const startServer = async () => {
 
   app.listen(PORT, async () => {
     console.log(`server started at ${PORT}`);
-    // const repo = new UserRepository();
-    // const user = await repo.getById(2);
-    // console.log(user.dataValues);
+    // const user = new UserService();
+    // const token = user.createToken({ email: "hello@damin.com", id: 3 });
+    // console.log(token);
+    // const verify = user.verifyToken(token);
+    // console.log(verify);
   });
 };
 
