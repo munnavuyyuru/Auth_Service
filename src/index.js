@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const { PORT } = require("./config/serverConfig");
+const { PORT, DB_SYNC } = require("./config/serverConfig");
 const apiRoutes = require("./routes/index");
 
-// const UserService = require("./services/user-Service");
+const db = require("./models/index");
 
 const startServer = async () => {
   app.use(bodyParser.json());
@@ -16,11 +16,9 @@ const startServer = async () => {
 
   app.listen(PORT, async () => {
     console.log(`server started at ${PORT}`);
-    // const user = new UserService();
-    // const token = user.createToken({ email: "hello@damin.com", id: 3 });
-    // console.log(token);
-    // const verify = user.verifyToken(token);
-    // console.log(verify);
+    if (process.env.DB_SYNC) {
+      db.sequelize.sync({ alter: true });
+    }
   });
 };
 
